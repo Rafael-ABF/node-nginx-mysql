@@ -21,7 +21,6 @@ docker-compose up -d
 ```
 
 4. **Acesse a aplicação**
-
-Para adicionar um item "Full Cycle" à lista, abra http://localhost:8080/.
-Para adicionar um valor personalizado, acesse http://localhost:8080/?name=ALGUM_VALOR, substituindo ALGUM_VALOR pelo valor desejado.
-Em ambos os casos, a lista com todos os itens será exibida.
+ - Após os três containers estarem prontos, acesse  para adicionar um item `Full Cycle` à lista.
+ - Para adicionar um valor personalizado, acesse `http://localhost:8080?name=ALGUM_VALOR`, substituindo ALGUM_VALOR pelo valor desejado.
+ - Em ambos os casos, a lista com todos os itens será exibida.
