@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./node-app
+      dockerfile: Dockerfile.node-app
+    ports:
+      - '3000:3000'
+    networks:
+      - nova-network
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./node-app:/usr/src/app
+    container_name: node-app
+    restart: always
+    tty: true
+  db:
+    command: --innodb-use-native-aio=0
+    container_name: mysql-db
+    restart: always
+    tty: true
+    build:
+      context: ./db
+      dockerfile: Dockerfile.mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - nova-network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "--user=root",
+          "--password=${MYSQL_ROOT_PASSWORD}",
+          "ping",
+          "-h",
+          "db",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  nginx:
+    image: nginx:1.19
+    container_name: nginx-proxy
+    restart: always
+    tty: true
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - '8080:80'
+    depends_on:
+      - app
+    networks:
+      - nova-network
+volumes:
+  db-data:
+networks:
+  nova-network:
+    driver: bridge

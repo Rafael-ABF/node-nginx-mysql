@@ -1,0 +1,5 @@
+FROM mysql:8.0
+
+RUN echo "CREATE DATABASE IF NOT EXISTS desafioDB;" > /docker-entrypoint-initdb.d/init.sql \
+    && echo "USE desafioDB;" >> /docker-entrypoint-initdb.d/init.sql \
+    && echo "CREATE TABLE IF NOT EXISTS people (ID INT AUTO_INCREMENT PRIMARY KEY, NAME VARCHAR(255) NOT NULL);" >> /docker-entrypoint-initdb.d/init.sql
