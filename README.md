@@ -24,3 +24,22 @@ docker-compose up -d
  - Após os três containers estarem prontos, acesse  para adicionar um item `Full Cycle` à lista.
  - Para adicionar um valor personalizado, acesse `http://localhost:8080?name=ALGUM_VALOR`, substituindo ALGUM_VALOR pelo valor desejado.
  - Em ambos os casos, a lista com todos os itens será exibida.
+
+## Em caso de erro
+Caso haja algum erro, pode ser que alguma outra imagem está em conflito.
+Nesse caso:
+1. **Finalize os containers**
+```
+docker-compose down
+```
+2. **Remova dados não utilizados**
+```
+docker system prune -f
+```
+
+3. **Inicie os containers em segundo plano**
+```
+docker-compose up -d
+```
+
+Se o problema continuar, abra uma Issue aqui no projeto.
