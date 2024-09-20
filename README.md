@@ -11,7 +11,7 @@ git clone https://github.com/Rafael-ABF/node-nginx-mysql.git
 2. **Navegue até o diretório do projeto:**
 
 ```
-cd seu-repositorio
+cd node-nginx-mysql/
 ```
 
 3. **Inicie os containers em segundo plano**
